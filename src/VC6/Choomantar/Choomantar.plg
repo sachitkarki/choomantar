@@ -6,25 +6,25 @@
 --------------------Configuration: Choomantar - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP30.tmp" with contents
+Creating temporary file "C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP55.tmp" with contents
 [
 /nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Release/Choomantar.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
-"C:\choomantar\src\carrier\bmp\BmpCarrier.cpp"
-"C:\choomantar\src\carrier\Carrier.cpp"
-"C:\choomantar\src\carrier\CarrierFactory.cpp"
-"C:\choomantar\src\common\data.cpp"
-"C:\choomantar\src\common\datainbits.cpp"
-"C:\choomantar\src\common\Exception.cpp"
-"C:\choomantar\src\common\FileManager.cpp"
-"C:\choomantar\src\carrier\ICarrier.cpp"
-"C:\choomantar\src\carrier\jpg\JpgCarrier.cpp"
-"C:\choomantar\src\main.cpp"
-"C:\choomantar\src\common\Random.cpp"
-"C:\choomantar\src\common\signature.cpp"
-"C:\choomantar\src\common\stegokey.cpp"
+"G:\Choomantar\src\carrier\bmp\BmpCarrier.cpp"
+"G:\Choomantar\src\carrier\Carrier.cpp"
+"G:\Choomantar\src\carrier\CarrierFactory.cpp"
+"G:\Choomantar\src\common\data.cpp"
+"G:\Choomantar\src\common\datainbits.cpp"
+"G:\Choomantar\src\common\Exception.cpp"
+"G:\Choomantar\src\common\FileManager.cpp"
+"G:\Choomantar\src\carrier\ICarrier.cpp"
+"G:\Choomantar\src\carrier\jpg\JpgCarrier.cpp"
+"G:\Choomantar\src\main.cpp"
+"G:\Choomantar\src\common\Random.cpp"
+"G:\Choomantar\src\common\signature.cpp"
+"G:\Choomantar\src\common\stegokey.cpp"
 ]
-Creating command line "cl.exe @"C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP30.tmp"" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP31.tmp" with contents
+Creating command line "cl.exe @"C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP55.tmp"" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP56.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"Release/Choomantar.pdb" /machine:I386 /out:"Release/Choomantar.exe" 
 .\Release\BmpCarrier.obj
@@ -42,7 +42,7 @@ kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32
 .\Release\stegokey.obj
 ..\..\carrier\jpg\libjpeg.lib
 ]
-Creating command line "link.exe @"C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP31.tmp""
+Creating command line "link.exe @"C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP56.tmp""
 <h3>Output Window</h3>
 Compiling...
 BmpCarrier.cpp
@@ -54,7 +54,7 @@ Exception.cpp
 FileManager.cpp
 ICarrier.cpp
 JpgCarrier.cpp
-C:\choomantar\src\carrier\jpg\JpgCarrier.cpp(391) : warning C4018: '>' : signed/unsigned mismatch
+G:\Choomantar\src\carrier\jpg\JpgCarrier.cpp(391) : warning C4018: '>' : signed/unsigned mismatch
 main.cpp
 Random.cpp
 signature.cpp
@@ -69,25 +69,25 @@ Choomantar.exe - 0 error(s), 1 warning(s)
 --------------------Configuration: Choomantar - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP33.tmp" with contents
+Creating temporary file "C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP58.tmp" with contents
 [
 /nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/Choomantar.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\choomantar\src\carrier\bmp\BmpCarrier.cpp"
-"C:\choomantar\src\carrier\Carrier.cpp"
-"C:\choomantar\src\carrier\CarrierFactory.cpp"
-"C:\choomantar\src\common\data.cpp"
-"C:\choomantar\src\common\datainbits.cpp"
-"C:\choomantar\src\common\Exception.cpp"
-"C:\choomantar\src\common\FileManager.cpp"
-"C:\choomantar\src\carrier\ICarrier.cpp"
-"C:\choomantar\src\carrier\jpg\JpgCarrier.cpp"
-"C:\choomantar\src\main.cpp"
-"C:\choomantar\src\common\Random.cpp"
-"C:\choomantar\src\common\signature.cpp"
-"C:\choomantar\src\common\stegokey.cpp"
+"G:\Choomantar\src\carrier\bmp\BmpCarrier.cpp"
+"G:\Choomantar\src\carrier\Carrier.cpp"
+"G:\Choomantar\src\carrier\CarrierFactory.cpp"
+"G:\Choomantar\src\common\data.cpp"
+"G:\Choomantar\src\common\datainbits.cpp"
+"G:\Choomantar\src\common\Exception.cpp"
+"G:\Choomantar\src\common\FileManager.cpp"
+"G:\Choomantar\src\carrier\ICarrier.cpp"
+"G:\Choomantar\src\carrier\jpg\JpgCarrier.cpp"
+"G:\Choomantar\src\main.cpp"
+"G:\Choomantar\src\common\Random.cpp"
+"G:\Choomantar\src\common\signature.cpp"
+"G:\Choomantar\src\common\stegokey.cpp"
 ]
-Creating command line "cl.exe @"C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP33.tmp"" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP34.tmp" with contents
+Creating command line "cl.exe @"C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP58.tmp"" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP59.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/Choomantar.pdb" /debug /machine:I386 /out:"Debug/Choomantar.exe" /pdbtype:sept 
 .\Debug\BmpCarrier.obj
@@ -105,7 +105,7 @@ kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32
 .\Debug\stegokey.obj
 ..\..\carrier\jpg\libjpeg.lib
 ]
-Creating command line "link.exe @"C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP34.tmp""
+Creating command line "link.exe @"C:\DOCUME~1\ADMINI~1.A-1\LOCALS~1\Temp\RSP59.tmp""
 <h3>Output Window</h3>
 Compiling...
 BmpCarrier.cpp
@@ -117,7 +117,7 @@ Exception.cpp
 FileManager.cpp
 ICarrier.cpp
 JpgCarrier.cpp
-c:\choomantar\src\carrier\jpg\jpgcarrier.cpp(391) : warning C4018: '>' : signed/unsigned mismatch
+g:\choomantar\src\carrier\jpg\jpgcarrier.cpp(391) : warning C4018: '>' : signed/unsigned mismatch
 main.cpp
 Random.cpp
 signature.cpp
