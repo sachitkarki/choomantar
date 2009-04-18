@@ -77,8 +77,7 @@ int main(int argc, char* argv[])
 			break;
 
 		case '2':
-			/*
-					Use only for testing purpose
+		
 
 			cout<<"\nEnter the input carrier file (File from  which to unhide data):";
 			cin>>input;
@@ -86,9 +85,10 @@ int main(int argc, char* argv[])
 			cin>>data;
 			cout<<"\nEnter the password";
 			cin>>password;
-			*/
+	
 
 			/*
+					Use only for testing purpose
 			strcpy(input,"c:\\oa.jpg");
 			//strcpy(output,"c:\\oa.txt");
 			strcpy(data,"c:\\ao.txt");
