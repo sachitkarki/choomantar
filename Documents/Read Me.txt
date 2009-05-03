@@ -1,3 +1,4 @@
 Choomantar is a steganograpy software which hide data in different images files like bmp,jpeg etc.
 For jpeg images we are using the JPEG library which is provide by IJG group (http://www.ijg.org).
 Hence "This software is based in part on the work of the Independent JPEG Group".
+ 
