@@ -1,29 +1,30 @@
 #include <stdio.h>
+#include<iostream>
 #include "Signature.h"
 #include "FileManager.h"
 #include "string.h"
-#include<iostream.h>
 
-void removesignature(char *infilename,char *outfilename)
+
+using namespace std;
+
+void removesignature(char *infilename)
 {
 
 	FileManager infile ,outfile;
+	char *outfilename = "temp.jsa";
 	char sig[3];
 	BYTE buff[512];
-	if(!infile.Open(infilename,ReadMode))
-		throw IO_ERROR_HANDLING_FILE;
-	if(!outfile.Open(outfilename,ReadWriteCreateMode))
-		throw IO_ERROR_HANDLING_FILE;
-
+	if(!infile.Open(infilename,ReadMode)){ throw new Exception("Cannot write output data file"); }
+	
+	if(!outfile.Open(outfilename,ReadWriteCreateMode)){ infile.Close();throw new Exception("Cannot write output data file"); }
+	
 	infile.Read(sig,3);
 	if(memcmp(sig,"JSA",3)!=0)
 	{
 		infile.Close();
 		outfile.Close();
 		FileManager::Remove(outfilename);
-
-	throw VALIDATION_FAILED; 
-
+		throw new Exception("Incorrect Password"); 
 	}
 
 	int lenght=infile.GetLength()-3;
@@ -42,6 +43,8 @@ void removesignature(char *infilename,char *outfilename)
 		infile.Close();
 		outfile.Close();
 		FileManager::Remove(infilename);
+		Replicate(outfilename,infilename);
+		FileManager::Remove(outfilename);
 }
 	
 
@@ -53,12 +56,10 @@ void Replicate(char *infilename,char *outfilename)
 
 	FileManager infile ,outfile;
 	BYTE buff[512];
-	if(!infile.Open(infilename,ReadMode))
-		throw IO_ERROR_HANDLING_FILE;
-	if(!outfile.Open(outfilename,ReadWriteCreateMode))
-		throw IO_ERROR_HANDLING_FILE;
-
-
+	if(!infile.Open(infilename,ReadMode)){ throw new Exception("Cannot open Carrier file"); }
+		
+	if(!outfile.Open(outfilename,ReadWriteCreateMode)){ infile.Close();throw new Exception("Cannot Create output file."); }
+		
 	int lenght=infile.GetLength();
 	int noofbytesread;
 
@@ -68,17 +69,16 @@ void Replicate(char *infilename,char *outfilename)
 		noofbytesread=infile.Read(buff,512);
 		outfile.Write(buff,noofbytesread);
 
-		curPos = infile.getPosition();
-
-		if( (curPos - 512 ) != lastPos)
-		{
-			cout<<"\n"<<lastPos<<"\t"<<curPos<<"\t"<<curPos-lastPos<<"\t"<<noofbytesread;
-			int a ;
-			cin>>a;
-		}
-		lastPos = curPos;
-	
-
+		//Added for debugging
+		//curPos = infile.getPosition();
+		//if( (curPos - 512 ) != lastPos)
+		//{
+		//	cout<<"\n"<<lastPos<<"\t"<<curPos<<"\t"<<curPos-lastPos<<"\t"<<noofbytesread;
+		//	int a ;
+		//	cin>>a;
+		//}
+		//lastPos = curPos;
+		
 		lenght-=512;
 	}
 	
@@ -89,4 +89,3 @@ void Replicate(char *infilename,char *outfilename)
 		outfile.Close();
 }
 	
-

@@ -6,6 +6,7 @@
 #include "BmpCarrier.h"
 #include "..\..\common\signature.h"
 #include "..\..\common\Random.h"
+#include "..\..\common\Exception.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -31,15 +32,9 @@ bool BmpCarrier::isSignatureBmp()
 
 	carrier.SeekToBegin();
 
-	if ( carrier.Read(bmpSignature,2) != 2)
-		return false;
-
+	if ( carrier.Read(bmpSignature,2) != 2) { throw new Exception("Cannot read the carrier BMP file."); }
 	
-	if(bmpSignature[0]!='B' || bmpSignature[1]!='M')
-	{
-		return false;
-	}
-
+	if(bmpSignature[0]!='B' || bmpSignature[1]!='M') { throw new Exception("The carrier BMP file is not a valid BMP file."); }
 
 return true;
 }
@@ -53,31 +48,13 @@ bool BmpCarrier::canHide(char *carrierFile,char *destFile,char *dataFile)
 	Replicate(carrierFile,destFile);
 	//---------------------------------------------
 
+	//check if carrier cannot be opened
+	if(!carrier.Open(destFile, ReadWriteMode)){ throw new Exception("Cannot open the Carrier BMP file."); }
 	
-	if(!carrier.Open(destFile, ReadWriteMode))
-	{
-		breturnValue = false;
-		return breturnValue;
-		//carrier cannot be opened
+	//check if data file cannot be opened
+	if(!inputData.openforread(dataFile)) { throw new Exception("Cannot open the input data file."); }
 
-	}
-
-	if(!inputData.openforread(dataFile))
-	{
-		//data file cannot be opened
-		breturnValue = false;
-		return breturnValue;
-
-	}
-
-	if(!isSignatureBmp())
-	{
-		//invalid signature
-		breturnValue = false;
-		return breturnValue;
-
-	}
-
+	isSignatureBmp(); //check if valid signature
 
 	carrier.Seek(10,BeginSeek);
 	carrier.Read(&imageOffset,4);
@@ -89,15 +66,8 @@ bool BmpCarrier::canHide(char *carrierFile,char *destFile,char *dataFile)
 	if( imageSize % REGION_SIZE != 0)
 		noOfRegions++;
 
-	if(inputData.length() > imageSize / CARRIER_TO_DATA_RATIO) 
-	{
-		//data too big to filt in
-		breturnValue = false;
-		return breturnValue;
-
-	}
-
-
+	if(inputData.length() > imageSize / CARRIER_TO_DATA_RATIO) { throw new Exception("The data file is too big to hide in this carrier"); }
+	
 	//--------------------------------------------
 	breturnValue = true;
 	return breturnValue;
@@ -111,28 +81,13 @@ bool BmpCarrier::canUnhide(char *carrierFile,char *dataFile)
 	//------------------------------------------------
 	BYTE buff[32];
 
-	if(!carrier.Open(carrierFile,ReadWriteMode))
-	{
-		breturnValue = false;
-		return breturnValue;
-		//carrier cannot be opened
-
-	}
-
-	if(!inputData.openforwrite(dataFile))
-	{	
-		breturnValue = false;
-		return breturnValue;
-		//data file cannot be opened
-	}
+	//check if carrier cannot be opened
+	if(!carrier.Open(carrierFile,ReadWriteMode)){ throw new Exception("Cannot open the Carrier BMP file."); }
 	
-	if(!isSignatureBmp())
-	{
-		//invalid signature
-		breturnValue = false;
-		return breturnValue;
-
-	}
+	//check if data file cannot be opened
+	if(!inputData.openforwrite(dataFile)) { throw new Exception("Cannot create the output data file."); }
+		
+	isSignatureBmp(); //check if valid signature
 
 	carrier.Seek(10,BeginSeek);
 

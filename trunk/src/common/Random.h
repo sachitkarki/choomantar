@@ -2,10 +2,13 @@
 #define __RANDOM_H
 
 
+#include<iostream>
 #include<stdio.h>
 #include<conio.h>
-#include<iostream.h>
+
 #include<math.h>
+
+using namespace std;
 
 class RandomGenerator
 {
