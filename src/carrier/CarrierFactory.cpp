@@ -6,8 +6,9 @@
 #include "CarrierFactory.h"
 #include<string.h>
 
-#include "bmp\BmpCarrier.h"
-#include "jpg\JpgCarrier.h"
+#include ".\bmp\BmpCarrier.h"
+#include ".\jpg\JpgCarrier.h"
+#include "..\common\Exception.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -37,9 +38,8 @@ ICarrier * CarrierFactory::GetCarrier(const char *ext)
 	{
 		p_Carrier = new JpgCarrier;
 	}
-
-
-
+	else { throw new Exception("This type carrier file is not supported"); }
+	
 	return p_Carrier;
 
 

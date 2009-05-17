@@ -10,6 +10,7 @@ typedef unsigned short WORD;
 //------------------------------------------------------------------
 #include "JpgCarrier.h"
 #include "..\..\common\Random.h"
+#include "..\..\common\Exception.h"
 
 extern "C"
 {
@@ -90,10 +91,7 @@ void JpgCarrier::hideInCarrier(char *carrierFile,char *destFile,char *dataFile)
 
 	/* Open the input file. */
 
-	if ((input_file = fopen(carrierFile, "rb")) == NULL) {
-		return;
-	  //throw IO_CARRIER_FILE_OPEN;      
-	}
+	if ((input_file = fopen(carrierFile, "rb")) == NULL) { throw new Exception("Cannot open the Carrier JPG file."); }
 
 
 
@@ -110,25 +108,11 @@ void JpgCarrier::hideInCarrier(char *carrierFile,char *destFile,char *dataFile)
 	/* Read source file as DCT coefficients */
 	src_coef_arrays = jpeg_read_coefficients(&srcinfo);
 
-
-
 	//fclose(temp);
-
-
-	
-
 
 	ptrsrcinfo=&srcinfo;
 
-	if(!temp.Open("jsa.jsa",ReadWriteCreateMode))
-	{
-		//throw IO_ERROR_HANDLING_FILE;
-
-	}
-
-
-
-
+	if(!temp.Open("jsa.jsa",ReadWriteCreateMode)){ throw new Exception("Cannot write the ouput Carrier file."); }
 
 	for (ci = 0; ci < ptrsrcinfo->num_components  ; ci++)//for component
 	{
@@ -169,25 +153,15 @@ void JpgCarrier::hideInCarrier(char *carrierFile,char *destFile,char *dataFile)
 	jpeg_create_compress(&dstinfo);// Create Decompress Object 
 	/* Specify data destination for compression */
 	
-	if ((output_file = fopen(destFile, "wb")) == NULL) 
-	{
-		return;
-	//  throw IO_DATA_FILE_CREATE;
-	}
+	if ((output_file = fopen(destFile, "wb")) == NULL) { throw new Exception("Cannot write the ouput Carrier file."); }
+
 
 	jpeg_stdio_dest(&dstinfo, output_file);
 	jpeg_copy_critical_parameters(&srcinfo, &dstinfo);
 		ptrdstinfo=&dstinfo;
 
-	if(!temp.Open("jsa.jsa",ReadMode))
-	{
-		return;
-		//throw IO_ERROR_HANDLING_FILE;
-
-	}
-
-
-
+	if(!temp.Open("jsa.jsa",ReadMode)) { throw new Exception("Cannot write the ouput Carrier file."); }
+	
 
 	for (ci = 0; ci < ptrsrcinfo->num_components  ; ci++)//for component
 	{
@@ -238,7 +212,6 @@ void JpgCarrier::hideInCarrier(char *carrierFile,char *destFile,char *dataFile)
 	if (output_file )
 		fclose(output_file);
 
-
 	temp.Close();
 
 	FileManager::Remove("jsa.jsa");
@@ -251,68 +224,50 @@ void JpgCarrier::unHideInCarrierFile(char *carrierFile,char *dataFile)
 
 	struct jpeg_decompress_struct srcinfo,*ptrsrcinfo;
 
-jvirt_barray_ptr * src_coef_arrays;
-  struct jpeg_error_mgr jsrcerr;
+	jvirt_barray_ptr * src_coef_arrays;
+	struct jpeg_error_mgr jsrcerr;
 
-  
+
 	JDIMENSION dst_blk_x, dst_blk_y;
-  int ci, offset_x, offset_y;
-  JBLOCKARRAY  dst_buffer;
-  JCOEFPTR  dst_ptr;
-  jpeg_component_info *compptr;
+	int ci, offset_x, offset_y;
+	JBLOCKARRAY  dst_buffer;
+	JCOEFPTR  dst_ptr;
+	jpeg_component_info *compptr;
 
-  FileManager temp;
+	FileManager temp;
+
+
+	FILE * input_file;
+
+	srcinfo.err = jpeg_std_error(&jsrcerr);
+	jsrcerr.error_exit =myerror;
+
+	jpeg_create_decompress(&srcinfo);
+
+	if ((input_file = fopen(carrierFile, "rb")) == NULL) { throw new Exception("Cannot open the Carrier JPG file."); }
 	
+	jpeg_stdio_src(&srcinfo, input_file);
 
-  FILE * input_file;
+	/* Enable saving of extra markers that we want to copy */
+	// jcopy_markers_setup(&srcinfo, copyoption);
+
+	/* Read file header */
+	(void) jpeg_read_header(&srcinfo, TRUE);
+	src_coef_arrays = jpeg_read_coefficients(&srcinfo);
+	ptrsrcinfo=&srcinfo;
+
+	if(!temp.Open("jsa.jsa",ReadWriteCreateMode)) { throw new Exception("Cannot write the ouput Carrier file."); }
+
   
-
-
-   srcinfo.err = jpeg_std_error(&jsrcerr);
-   jsrcerr.error_exit =myerror;
-
-
-   jpeg_create_decompress(&srcinfo);
-
-    if ((input_file = fopen(carrierFile, "rb")) == NULL) 
+	for (ci = 0; ci < ptrsrcinfo->num_components  ; ci++)//for component
 	{
-      //throw IO_CARRIER_FILE_OPEN;      
-		return;
-    }
+	compptr = ptrsrcinfo->comp_info + ci;
 
-
-	 jpeg_stdio_src(&srcinfo, input_file);
-
-  /* Enable saving of extra markers that we want to copy */
-// jcopy_markers_setup(&srcinfo, copyoption);
-
-  /* Read file header */
-  (void) jpeg_read_header(&srcinfo, TRUE);
-   src_coef_arrays = jpeg_read_coefficients(&srcinfo);
-   ptrsrcinfo=&srcinfo;
-
-
-
-   if(!temp.Open("jsa.jsa",ReadWriteCreateMode))
-  {
-		//throw IO_ERROR_HANDLING_FILE;
-	   return;
-
-  }
-
-
-  
-  
-  
-  for (ci = 0; ci < ptrsrcinfo->num_components  ; ci++)//for component
-  {
-    compptr = ptrsrcinfo->comp_info + ci;
-
-    for (dst_blk_y = 0; dst_blk_y < compptr->height_in_blocks ;dst_blk_y += compptr->v_samp_factor) //for block
-	{
-      dst_buffer = (*ptrsrcinfo->mem->access_virt_barray)
-	((j_common_ptr) ptrsrcinfo, src_coef_arrays[ci], dst_blk_y,
-	 (JDIMENSION) compptr->v_samp_factor, TRUE);
+		for (dst_blk_y = 0; dst_blk_y < compptr->height_in_blocks ;dst_blk_y += compptr->v_samp_factor) //for block
+		{
+		dst_buffer = (*ptrsrcinfo->mem->access_virt_barray)
+		((j_common_ptr) ptrsrcinfo, src_coef_arrays[ci], dst_blk_y,
+		(JDIMENSION) compptr->v_samp_factor, TRUE);
 		  for (offset_y = 0; offset_y < compptr->v_samp_factor  ; offset_y++) 
 		  {
 				for (dst_blk_x = 0; dst_blk_x < compptr->width_in_blocks  ;dst_blk_x += compptr->h_samp_factor) 
@@ -320,24 +275,22 @@ jvirt_barray_ptr * src_coef_arrays;
 			
 						for (offset_x = 0; offset_x < compptr->h_samp_factor  ; offset_x++) 
 						{
-					//	src_ptr = src_buffer[offset_x][dst_blk_y + offset_y];
-						dst_ptr = dst_buffer[offset_y][dst_blk_x + offset_x];
-						temp.Write(dst_ptr,64 *2);
-							
+							//	src_ptr = src_buffer[offset_x][dst_blk_y + offset_y];
+							dst_ptr = dst_buffer[offset_y][dst_blk_x + offset_x];
+							temp.Write(dst_ptr,64 *2);
+								
 						}	
 				}
 
 			}
-    }
-  }
+		}
+	}
 
-  temp.Close();
+	temp.Close();
+	
+	unhideintemp("jsa.jsa",dataFile);
 
-
-  unhideintemp("jsa.jsa",dataFile);
-
-		
-  FileManager::Remove("jsa.jsa");
+	FileManager::Remove("jsa.jsa");
 
 
 }
@@ -351,50 +304,35 @@ void JpgCarrier::hideintemp(char *tempfile,char *datafile)
 	FileManager carrier;
 	int imagesize,noofregions;
 
-WORD buff[REGION_SIZE];
-//	char temp[20];
+	WORD buff[REGION_SIZE];
+	//	char temp[20];
 	RandomGenerator r;  
-//	ran r;
+	//	ran r;
 	int i,noofbytesread,lenght;
 	int imageoffset=0;
 
 	//stegokey key(4);
-//	key.intialize(pass);
+	//	key.intialize(pass);
 
 	datainbits inputdata;
 
-
-	
-	
+	if(!carrier.Open(tempfile,ReadWriteMode)){ throw new Exception("Cannot open the Carrier JPG file."); }
 
 
-
-	if(!carrier.Open(tempfile,ReadWriteMode))
-	{
-			//throw IO_ERROR_HANDLING_FILE;
-		return;
-	}
-
-	if(!inputdata.openforread(datafile))
-	{
-		//throw IO_DATA_FILE_OPEN;
-		return;
-	}
-
+	if(!inputdata.openforread(datafile)){ carrier.Close(); throw new Exception("Cannot open the data file."); }
 	
 	imagesize=carrier.GetLength()-64;   //32 left for lenght
-		noofregions=imagesize/REGION_SIZE;
-		if(imagesize%REGION_SIZE!=0)
-			noofregions++;
+	noofregions=imagesize/REGION_SIZE;
+	if(imagesize%REGION_SIZE!=0)
+		noofregions++;
 
 
-			if(inputdata.length()> imagesize/24)//dct are words
-			{
-				inputdata.close();
-				carrier.Close();
-				//throw DATA_TOO_LARGE;//data too big to filt in
-
-			}
+	if(inputdata.length()> imagesize/24)//dct are words
+	{
+		inputdata.close();
+		carrier.Close();
+		throw new Exception("The data file is too big to hide in this carrier"); 
+	}
 
 
 
@@ -406,20 +344,17 @@ WORD buff[REGION_SIZE];
 		int k=1<<i;
 
 		k=k&lenght;
-			if(k==0)
-				buff[i]=buff[i] & 0xfffe;
-			else
-				buff[i]=buff[i] | 1;
+		if(k==0)
+			buff[i]=buff[i] & 0xfffe;
+		else
+			buff[i]=buff[i] | 1;
 	}
-	
+
 
 	carrier.Seek(imageoffset,BeginSeek);
 	carrier.Write(buff,32*2);
 
 	imageoffset+=64;
-
-
-
 
 	for( i=0;i<noofregions;i++)
 	{
@@ -429,146 +364,111 @@ WORD buff[REGION_SIZE];
 		r.setRangeAndSeed(m_pStegoKey->converttonum(),noofbytesread/2);//because dct is 2 bytes
 		int t=0,bitno=i,byteno;
 
-
-
-
-//		byteno=0;//change
-	
+		//		byteno=0;//change
 		while(t!=-1)
-				//	while(byteno<noofbytesread)
+		//	while(byteno<noofbytesread)
 		{
 			t=inputdata.getBitNo(bitno);
 			byteno=r.nextRandom();
-				if(t==-1)
-					break;
-				else if (t==0)
-						buff[byteno]&=0xfffe;
-				else
-						buff[byteno]|=1;
-		//		bitno++;
+			if(t==-1)
+				break;
+			else if (t==0)
+				buff[byteno]&=0xfffe;
+			else
+				buff[byteno]|=1;
+			//		bitno++;
+
 			bitno+=noofregions;
-					//byteno++;
+			//byteno++;
 		}
 		carrier.Seek(i*REGION_SIZE+imageoffset,BeginSeek);
 		carrier.Write(buff,noofbytesread);
-	/*
+		/*
 		nextkey=key^prevkey;
 		prevkey=key;
 		key=nextkey;*/
 
-
-	
 	}
 
 	carrier.Close();
 	inputdata.close();
 
 
-
-
-
-
-
-
-
-
-
-
-	
-
 }
 void JpgCarrier::unhideintemp(char *tempfile,char *datafile)
 {
 	
-FileManager carrier;
+	FileManager carrier;
 
-datainbits inputdata;
-int imagesize,imageoffset=0,noofbytesread;
-WORD buff[512];
+	datainbits inputdata;
+	int imagesize,imageoffset=0,noofbytesread;
+	WORD buff[512];
 
-//stegokey key(4);
-RandomGenerator r;
+	//stegokey key(4);
+	RandomGenerator r;
 
-//key.intialize(pass);
+	//key.intialize(pass);
 
+	if(!carrier.Open(tempfile,ReadWriteMode)){ throw new Exception("Cannot open the Carrier JPG file."); }
 
+	if(!inputdata.openforwrite(datafile)){ carrier.Close(); throw new Exception("Cannot open the data file."); }
 
-
-
-
-
-
-  if(!carrier.Open(tempfile,ReadWriteMode))
-  {
-	  //throw IO_ERROR_HANDLING_FILE;
-	  return;
-
-  }
-
-  if(!inputdata.openforwrite(datafile))
-  {
-	  return;
-	//			throw  IO_DATA_FILE_CREATE;    //data file cannot be opened
-  }
-
-
-	
-
-  	imagesize=carrier.GetLength()-64; //size in first 32 bytes
+	imagesize=carrier.GetLength()-64; //size in first 32 words
 	int 	noofregions=imagesize/REGION_SIZE;
-		if(imagesize%REGION_SIZE!=0)
-			noofregions++;
-		carrier.Seek(imageoffset,BeginSeek);
-		carrier.Read(buff,32*2);
-int 	datalenght=0;
+
+	if(imagesize%REGION_SIZE!=0)
+		noofregions++;
+
+	carrier.Seek(imageoffset,BeginSeek);
+	carrier.Read(buff,32*2);
+	
+	int 	datalenght=0;
 	int t1,t;
-		for(int i=0;i<32;i++)
-		{
-			t=1<<i;
 
-			t1=buff[i] & 1;
-			if(t1!=0)
-				datalenght  =t|datalenght;
-		}
-		imageoffset+=64;
+	for(int i=0;i<32;i++)
+	{
+		t=1<<i;
 
-int	totaldatabits=8*datalenght;
+		t1=buff[i] & 1;
+		if(t1!=0)
+		datalenght  =t|datalenght;
+	}
 
+	imageoffset+=64;
 
+	int	totaldatabits=8*datalenght;
 
+	for( i=0;i<noofregions;i++)
+	{
+	int z=i*REGION_SIZE+imageoffset;
 
-		for( i=0;i<noofregions;i++)
-		{
-		int z=i*REGION_SIZE+imageoffset;
 		carrier.Seek(i*REGION_SIZE+imageoffset,BeginSeek);
 		noofbytesread=carrier.Read(buff,REGION_SIZE);
 		r.setRangeAndSeed(m_pStegoKey->converttonum(),noofbytesread/2);
+
 		int t=0,bitno=i,byteno=0;
+
 		while(bitno<totaldatabits)
 		{
-			
+
 			byteno=r.nextRandom();
 
 			t=buff[byteno] & 1;
-				if(t==0)
-					inputdata.putBitNo(bitno,0);
-				
-				else
-						inputdata.putBitNo(bitno,1);
+			if(t==0)
+				inputdata.putBitNo(bitno,0);
+			else
+				inputdata.putBitNo(bitno,1);
+	
 			bitno+=noofregions;
-		//		bitno++;
-		//		byteno++;
+			//		bitno++;
+			//		byteno++;
 		}
 		//byteno=0;
-	/*	nextkey=key^prevkey;
+		/*	nextkey=key^prevkey;
 		prevkey=key;
 		key=nextkey;*/
 	}
 
-//	inputdata.flushbuff();
-
-		
-	
-
+	//	inputdata.flushbuff();
 }
 
