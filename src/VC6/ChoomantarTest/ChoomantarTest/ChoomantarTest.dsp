@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="Choomantar" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="ChoomantarTest" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
-CFG=Choomantar - Win32 Debug
+CFG=ChoomantarTest - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "Choomantar.mak".
+!MESSAGE NMAKE /f "ChoomantarTest.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "Choomantar.mak" CFG="Choomantar - Win32 Debug"
+!MESSAGE NMAKE /f "ChoomantarTest.mak" CFG="ChoomantarTest - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "Choomantar - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "Choomantar - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "ChoomantarTest - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "ChoomantarTest - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -28,7 +28,7 @@ CFG=Choomantar - Win32 Debug
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "Choomantar - Win32 Release"
+!IF  "$(CFG)" == "ChoomantarTest - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -51,7 +51,7 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 
-!ELSEIF  "$(CFG)" == "Choomantar - Win32 Debug"
+!ELSEIF  "$(CFG)" == "ChoomantarTest - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -62,7 +62,6 @@ LINK32=link.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
-# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
@@ -79,66 +78,66 @@ LINK32=link.exe
 
 # Begin Target
 
-# Name "Choomantar - Win32 Release"
-# Name "Choomantar - Win32 Debug"
+# Name "ChoomantarTest - Win32 Release"
+# Name "ChoomantarTest - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\carrier\bmp\BmpCarrier.cpp
+SOURCE=..\..\..\carrier\bmp\BmpCarrier.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\carrier\Carrier.cpp
+SOURCE=..\..\..\carrier\Carrier.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\carrier\CarrierFactory.cpp
+SOURCE=..\..\..\carrier\CarrierFactory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\data.cpp
+SOURCE=..\..\..\common\data.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\datainbits.cpp
+SOURCE=..\..\..\common\datainbits.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\Exception.cpp
+SOURCE=..\..\..\common\Exception.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\FileManager.cpp
+SOURCE=..\..\..\common\FileManager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\carrier\ICarrier.cpp
+SOURCE=..\..\..\carrier\ICarrier.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\carrier\jpg\JpgCarrier.cpp
+SOURCE=..\..\..\carrier\jpg\JpgCarrier.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\main.cpp
+SOURCE=..\..\..\mainTest.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\Random.cpp
+SOURCE=..\..\..\common\Random.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\signature.cpp
+SOURCE=..\..\..\common\signature.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\stegokey.cpp
+SOURCE=..\..\..\common\stegokey.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\Util.cpp
+SOURCE=..\..\..\common\Util.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -146,59 +145,71 @@ SOURCE=..\..\common\Util.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\carrier\bmp\BmpCarrier.h
+SOURCE=..\..\..\carrier\bmp\BmpCarrier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\carrier\Carrier.h
+SOURCE=..\..\..\carrier\Carrier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\carrier\CarrierFactory.h
+SOURCE=..\..\..\carrier\CarrierFactory.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\CommonDefs.h
+SOURCE=..\..\..\common\CommonDefs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\data.h
+SOURCE=..\..\..\common\data.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\datainbits.h
+SOURCE=..\..\..\common\datainbits.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\Exception.h
+SOURCE=..\..\..\common\Exception.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\FileManager.h
+SOURCE=..\..\..\common\FileManager.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\carrier\ICarrier.h
+SOURCE=..\..\..\carrier\ICarrier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\carrier\jpg\JpgCarrier.h
+SOURCE=..\..\..\carrier\jpg\jconfig.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\Random.h
+SOURCE=..\..\..\carrier\jpg\jmorecfg.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\Signature.h
+SOURCE=..\..\..\carrier\jpg\jpeglib.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\stegokey.h
+SOURCE=..\..\..\carrier\jpg\JpgCarrier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\common\Util.h
+SOURCE=..\..\..\common\Random.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\common\Signature.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\common\stegokey.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\common\Util.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
@@ -207,7 +218,7 @@ SOURCE=..\..\common\Util.h
 # End Group
 # Begin Source File
 
-SOURCE=..\..\carrier\jpg\libjpeg.lib
+SOURCE=..\..\..\carrier\jpg\libjpeg.lib
 # End Source File
 # End Target
 # End Project
