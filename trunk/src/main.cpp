@@ -8,7 +8,7 @@
 #include ".\common\Exception.h"
 #include ".\common\Signature.h"
 #include ".\common\Util.h"
-
+#include ".\UI\IUserInterface.h"
 
 using namespace std;
 
