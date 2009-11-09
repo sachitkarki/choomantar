@@ -8,7 +8,7 @@ class stegokey
 {
 protected:
 	int n,whichpart;
-	BYTE key[8];
+	BYTE key[100];
 public:
 	stegokey(int noofbytes);
 	stegokey operator ^(stegokey);
