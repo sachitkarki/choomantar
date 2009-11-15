@@ -66,7 +66,10 @@ bool BmpCarrier::canHide(char *carrierFile,char *destFile,char *dataFile)
 	if( imageSize % REGION_SIZE != 0)
 		noOfRegions++;
 
-	if(inputData.length() > imageSize / CARRIER_TO_DATA_RATIO) { throw new Exception("The data file is too big to hide in this carrier"); }
+	if(inputData.length() > imageSize / CARRIER_TO_DATA_RATIO) { 
+		carrier.Close();
+		inputData.close();
+		throw new Exception("The data file is too big to hide in this carrier"); }
 	
 	//--------------------------------------------
 	breturnValue = true;
@@ -117,6 +120,17 @@ bool BmpCarrier::canUnhide(char *carrierFile,char *dataFile)
 	}
 
 	imageOffset += 32;
+
+	if(dataLength < 0){	
+		carrier.Close();
+		throw new Exception("Data not hidden in this file"); 
+	}
+
+	if(dataLength > imageSize / CARRIER_TO_DATA_RATIO) { 
+		carrier.Close();
+		throw new Exception("Data not hidden in this file"); 
+	}
+
 
 	//-------------------------------------------------
 	breturnValue = true;

@@ -43,6 +43,7 @@ bool JpgCarrier::canHide(char *carrierFile,char *destFile,char *dataFile)
 {
 
 	bool breturnValue = true;
+
 //TODO: Check if you can hide data or not.
 	return breturnValue;
 
@@ -327,7 +328,7 @@ void JpgCarrier::hideintemp(char *tempfile,char *datafile)
 		noofregions++;
 
 
-	if(inputdata.length()> imagesize/24)//dct are words
+	if(inputdata.length() > imagesize / 24)//dct are words
 	{
 		inputdata.close();
 		carrier.Close();
@@ -419,6 +420,10 @@ void JpgCarrier::unhideintemp(char *tempfile,char *datafile)
 	if(imagesize%REGION_SIZE!=0)
 		noofregions++;
 
+
+
+
+
 	carrier.Seek(imageoffset,BeginSeek);
 	carrier.Read(buff,32*2);
 	
@@ -433,6 +438,16 @@ void JpgCarrier::unhideintemp(char *tempfile,char *datafile)
 		if(t1!=0)
 		datalenght  =t|datalenght;
 	}
+
+
+	if((datalenght > imagesize / 24) || (datalenght < 0))//dct are words
+	{
+		inputdata.close();
+		carrier.Close();
+		throw new Exception("Could not find data in file"); 
+	}
+
+
 
 	imageoffset+=64;
 
