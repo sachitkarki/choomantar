@@ -98,6 +98,23 @@ SOURCE=..\..\carrier\CarrierFactory.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\UI\CommandArgs.cpp
+
+!IF  "$(CFG)" == "Choomantar - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "Choomantar - Win32 Debug"
+
+# SUBTRACT CPP /Fr
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\UI\CommandLineUI.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\common\data.cpp
 # End Source File
 # Begin Source File
@@ -155,6 +172,14 @@ SOURCE=..\..\carrier\Carrier.h
 # Begin Source File
 
 SOURCE=..\..\carrier\CarrierFactory.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\UI\CommandArgs.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\UI\CommandLineUI.h
 # End Source File
 # Begin Source File
 

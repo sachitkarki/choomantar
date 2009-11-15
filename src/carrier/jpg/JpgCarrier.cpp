@@ -43,7 +43,7 @@ bool JpgCarrier::canHide(char *carrierFile,char *destFile,char *dataFile)
 {
 
 	bool breturnValue = true;
-
+//TODO: Check if you can hide data or not.
 	return breturnValue;
 
 }
