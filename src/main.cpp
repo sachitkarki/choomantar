@@ -55,7 +55,7 @@ void exec(IUserInterface *userInterface){
 	int ch = -1;
 	char input[100],output[100],password[100],data[100];
 
-	while(ch != 0)
+	do
 	{
 
 			ch = userInterface->getOptions();
@@ -77,7 +77,11 @@ void exec(IUserInterface *userInterface){
 
 				break;
 			}
-	}
+
+			//TODO: need to check if the userINterface is CommangArgs then exit;
+
+
+	}while(ch != 0);
 }
 
 
@@ -85,6 +89,7 @@ int main(int argc, char* argv[])
 {
 
 IUserInterface *userInterface;
+
 	try{
 
 		if(argc  > 1){
