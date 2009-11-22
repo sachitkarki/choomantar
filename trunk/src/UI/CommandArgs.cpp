@@ -60,12 +60,18 @@ char*pa = "-p";
 int CommandArgs::getOptions()
 {
 
+	if(runCount ==1){
+	return EXIT;
+	}
+
 	if(!strcmp(option,"hide")){
+		runCount =1;
 		return HIDE;
 	}
 
 
 	if(!strcmp(option,"unhide")){
+		runCount =1;
 		return UNHIDE;
 	}
 	
@@ -77,7 +83,7 @@ int CommandArgs::getOptions()
 return EXIT;
 }
 
-void CommandArgs::getDataForHide(char*inputFileName , char*outputFileName,char*dataFileName,char*password)
+bool CommandArgs::getDataForHide(char*inputFileName , char*outputFileName,char*dataFileName,char*password)
 {
 //need to coolect all expections and throw at once
 
@@ -102,11 +108,11 @@ void CommandArgs::getDataForHide(char*inputFileName , char*outputFileName,char*d
 	strcpy(dataFileName,dataFile);
 	strcpy(password,pass);
 	
-
+return true;
 }
 
 
-void CommandArgs::getDataForUnHide(char*inputFileName,char*outputDataFileName,char*password)
+bool CommandArgs::getDataForUnHide(char*inputFileName,char*outputDataFileName,char*password)
 {
 
 	if(!inputCarrier){
@@ -125,6 +131,8 @@ void CommandArgs::getDataForUnHide(char*inputFileName,char*outputDataFileName,ch
 	strcpy(outputDataFileName,dataFile);
 	strcpy(password,pass);
 
+	
+	return true;
 				
 
 }
