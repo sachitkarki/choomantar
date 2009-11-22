@@ -16,8 +16,9 @@ public:
 
 
 	virtual int getOptions() = 0;
-	virtual void getDataForHide(char* inputFileName ,  char* outputFileName , char* dataFileName ,  char * password) = 0;
-	virtual void getDataForUnHide(char* inputFileName ,  char* outputDataFileName ,  char * password) = 0;
+	virtual bool getDataForHide(char* inputFileName ,  char* outputFileName , char* dataFileName ,  char * password) = 0;
+	virtual bool getDataForUnHide(char* inputFileName ,  char* outputDataFileName ,  char * password) = 0;
+	
 	
 };
 

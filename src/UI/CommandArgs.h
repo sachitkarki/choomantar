@@ -12,8 +12,8 @@ public:
 protected:
 
 	virtual int getOptions();
-	virtual void getDataForHide(char* inputFileName ,  char* outputFileName , char* dataFileName ,  char * password);
-	virtual void getDataForUnHide(char* inputFileName ,  char* outputDataFileName ,  char * password);
+	virtual bool getDataForHide(char* inputFileName ,  char* outputFileName , char* dataFileName ,  char * password);
+	virtual bool getDataForUnHide(char* inputFileName ,  char* outputDataFileName ,  char * password);
  
 private:
 	int noOfArguments;
@@ -22,6 +22,8 @@ private:
 	char * outputCarrier;
 	char * pass;
 	char * dataFile;
+	int runCount;
+
 
 };
 

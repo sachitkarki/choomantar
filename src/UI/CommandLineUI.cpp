@@ -15,7 +15,7 @@ int ch;
 return ch;
 }
 
-void CommandLineUI::getDataForHide(char*inputFileName , char*outputFileName,char*dataFileName,char*password)
+bool CommandLineUI::getDataForHide(char*inputFileName , char*outputFileName,char*dataFileName,char*password)
 {
 
 
@@ -39,10 +39,11 @@ void CommandLineUI::getDataForHide(char*inputFileName , char*outputFileName,char
 				
 				*/
 
+return true;
 }
 
 
-void CommandLineUI::getDataForUnHide(char*inputFileName,char*outputDataFileName,char*password)
+bool CommandLineUI::getDataForUnHide(char*inputFileName,char*outputDataFileName,char*password)
 {
 
 	
@@ -63,5 +64,5 @@ void CommandLineUI::getDataForUnHide(char*inputFileName,char*outputDataFileName,
 				strcpy(password,"aaaa");
 				*/
 				
-
+return true;
 }
